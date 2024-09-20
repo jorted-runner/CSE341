@@ -1,11 +1,19 @@
-const mongodb = require('../database/connect');
+const professionalController = {};
+const path = require("path");
+const fs = require("fs");
 
-const getData = async (req, res, next) => {
-  const result = await mongodb.getDb().db().collection('user').find();
-  result.toArray().then((lists) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(lists[0]); // we just need the first one (the only one)
+professionalController.getData = (req, res) => {
+  const filePath = path.join(__dirname, '../user.json');
+  
+  // Check if the file exists before sending
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error("File not found:", filePath);
+      return res.status(404).send('File not found');
+    }
+
+    res.sendFile(filePath);
   });
 };
 
-module.exports = { getData };
+module.exports = professionalController;

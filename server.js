@@ -1,11 +1,12 @@
 const express = require('express');
-
-const port = process.env.PORT || 8080;
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
+const router = require('./routes')
+
+const port = process.env.PORT || 8080;
+
+app.use('/', router)
+app.use('/professional', router)
 
 app.listen(port);
 console.log('Web Server is listening at port ' + port);
