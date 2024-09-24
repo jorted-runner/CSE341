@@ -1,7 +1,7 @@
-const baseController = {}
+const baseController = {};
 
 baseController.getHome = (req, res) => {
-  res.send('Welcome home');
+	res.send('Welcome home');
 };
 
-module.exports = baseController
+module.exports = baseController;
